@@ -1,0 +1,127 @@
+openapi: 3.1.0
+info:
+  title: GlobalDealRadarAPI
+  version: 1.0.0
+  description: Paid global deal radar for shopping, software, AI tools, courses, gaming, travel, hosting, books, audiobooks, recipes and digital products.
+servers:
+  - url: https://global-deal-radar-api.onrender.com
+paths:
+  /health:
+    get:
+      summary: Public health check
+      responses:
+        "200":
+          description: Runtime health and cache status
+  /deals:
+    get:
+      summary: List normalized deals and opportunity signals
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: source
+          in: query
+          schema:
+            type: string
+        - name: item_type
+          in: query
+          schema:
+            type: string
+            enum: [deal, market_signal, resource_list]
+        - name: min_score
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [score, newest, discount, price]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+        - name: refresh
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Normalized deal list
+        "402":
+          description: Paid gateway required
+  /deals/{deal_id}:
+    get:
+      summary: Get one deal by id
+      parameters:
+        - name: deal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Single deal detail
+        "404":
+          description: Deal not found
+  /trending:
+    get:
+      summary: Top-scored deals and market signals
+      responses:
+        "200":
+          description: Trending deal list
+  /categories:
+    get:
+      summary: Categories with current counts
+      responses:
+        "200":
+          description: Category catalog
+  /sources:
+    get:
+      summary: Source metadata and attribution
+      responses:
+        "200":
+          description: Source list
+  /stats:
+    get:
+      summary: Deal counts by category, source and type
+      responses:
+        "200":
+          description: Deal statistics
+  /search-links:
+    get:
+      summary: Provider search links for a query
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Provider search links
+components:
+  securitySchemes:
+    RapidAPIKey:
+      type: apiKey
+      name: X-RapidAPI-Key
+      in: header
+security:
+  - RapidAPIKey: []

@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: global-deal-radar-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /health
+    envVars:
+      - key: REQUIRE_PAID_GATEWAY
+        value: "true"
+      - key: PAID_GATEWAY_SECRET_HASHES
+        value: "fb4d84f55fe8c752d0daf9bd9b381f07bbd9b3e05c9a513a3752764894bdcae0"
+      - key: CACHE_TTL_SECONDS
+        value: "1800"
+      - key: SOURCE_TIMEOUT_SECONDS
+        value: "15"
+      - key: MAX_LIMIT
+        value: "100"
+      - key: ENABLED_SOURCES
+        value: cheapshark,slickdeals,dealnews,techbargains,reddit_deals,hn_algolia,github_resources
