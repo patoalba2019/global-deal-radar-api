@@ -27,8 +27,8 @@ safe follow-up search links.
 | CheapShark | Public API | Source-provided game sale price, normal price, savings and redirect URL |
 | Slickdeals | RSS | Frontpage community deal posts |
 | DealNews | RSS | Editorial daily deal posts |
-| TechBargains | RSS | Technology bargain posts |
-| Reddit r/deals | RSS | Community deal discussions |
+| TechBargains | Optional RSS | Technology bargain posts; disabled by default on cloud hosts that receive 403 responses |
+| Reddit r/deals | Optional RSS | Community deal discussions; disabled by default on cloud hosts that receive rate limits |
 | Hacker News Algolia | Public API | Software, AI, hosting and pricing market signals |
 | GitHub Search | Public API | Popular curated discount-resource repositories |
 
@@ -62,7 +62,7 @@ Query parameters:
 - `q`: text search across title, summary, merchant and tags
 - `category`: one category id, such as `software`, `ai-tools`, `travel`,
   `books-audiobooks`, `food-recipes` or `gaming`
-- `source`: one source id, such as `cheapshark` or `slickdeals`
+- `source`: one source id, such as `cheapshark`, `slickdeals` or `dealnews`
 - `item_type`: `deal`, `market_signal` or `resource_list`
 - `min_score`: minimum score from 1 to 100
 - `sort`: `score`, `newest`, `discount` or `price`

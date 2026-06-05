@@ -18,4 +18,4 @@ services:
       - key: MAX_LIMIT
         value: "100"
       - key: ENABLED_SOURCES
-        value: cheapshark,slickdeals,dealnews,techbargains,reddit_deals,hn_algolia,github_resources
+        value: cheapshark,slickdeals,dealnews,hn_algolia,github_resources

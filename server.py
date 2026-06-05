@@ -34,7 +34,7 @@ ENABLED_SOURCES = {
     source.strip().lower()
     for source in os.environ.get(
         "ENABLED_SOURCES",
-        "cheapshark,slickdeals,dealnews,techbargains,reddit_deals,hn_algolia,github_resources",
+        "cheapshark,slickdeals,dealnews,hn_algolia,github_resources",
     ).split(",")
     if source.strip()
 }
