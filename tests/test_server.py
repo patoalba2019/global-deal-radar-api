@@ -83,9 +83,30 @@ class GlobalDealRadarAPITest(unittest.TestCase):
 
     def test_health_is_public(self):
         os.environ["REQUIRE_PAID_GATEWAY"] = "true"
-        response = self.client.get("/health")
+        with patch.object(
+            self.server,
+            "snapshot",
+            return_value={
+                "deals": [],
+                "metadata": {
+                    "api": self.server.APP_NAME,
+                    "version": self.server.APP_VERSION,
+                    "updated_at": "2026-06-11T00:00:00+00:00",
+                    "last_successful_refresh_at": "2026-06-11T00:00:00+00:00",
+                    "deal_count": 2,
+                    "sources": ["cheapshark", "slickdeals"],
+                    "source_errors": {},
+                },
+            },
+        ):
+            response = self.client.get("/health")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()["api"], "GlobalDealRadarAPI")
+        data = response.get_json()
+        self.assertEqual(data["api"], "GlobalDealRadarAPI")
+        self.assertTrue(data["catalog_ready"])
+        self.assertEqual(data["deal_signal_count"], 2)
+        self.assertEqual(data["active_source_count"], 2)
+        self.assertNotIn("cache", data)
 
     def test_paid_gateway_blocks_data_and_accepts_secret(self):
         os.environ["REQUIRE_PAID_GATEWAY"] = "true"

@@ -53,9 +53,9 @@ products can show transparent deal provenance.
 
 ## Access Model
 
-`/health` and `/openapi.json` are public for monitoring and documentation.
-Product data endpoints use a gateway secret sent by RapidAPI or another paid
-marketplace:
+`/health` and `/openapi.json` expose only operational and documentation
+metadata. Product data endpoints require a gateway secret sent by RapidAPI or
+another paid marketplace:
 
 - `X-RapidAPI-Proxy-Secret`
 - `X-API-Gateway-Secret`
@@ -116,8 +116,8 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the server (local development)
-REQUIRE_PAID_GATEWAY=false python server.py
+# Run the server with paid-gateway protection enabled
+python server.py
 ```
 
 ### Test the API
@@ -125,8 +125,9 @@ REQUIRE_PAID_GATEWAY=false python server.py
 # Health check
 curl http://localhost:5000/health
 
-# Get deals
-curl "http://localhost:5000/deals?limit=10&category=software"
+# Product data requires the configured marketplace gateway secret
+curl "http://localhost:5000/deals?limit=10&category=software" \
+  -H "X-RapidAPI-Proxy-Secret: $GATEWAY_SECRET"
 
 # Get trending deals
 curl http://localhost:5000/trending

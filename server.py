@@ -28,7 +28,7 @@ DEFAULT_LIMIT = int(os.environ.get("DEFAULT_LIMIT", "25"))
 MAX_LIMIT = int(os.environ.get("MAX_LIMIT", "100"))
 USER_AGENT = os.environ.get(
     "SOURCE_USER_AGENT",
-    "GlobalDealRadarAPI/1.0 (+https://rapidapi.com/patoalba2019/api/globaldealradarapi)",
+    "GlobalDealRadarAPI/1.0 (+https://patoapis-paid-apis.onrender.com/global-deal-radar-api.html)",
 )
 ENABLED_SOURCES = {
     source.strip().lower()
@@ -893,14 +893,18 @@ def counts_by(items: list[dict], field: str) -> dict:
 
 @app.get("/health")
 def health():
-    with cache_lock:
-        metadata = dict(cache["metadata"])
+    data = snapshot()
+    metadata = dict(data["metadata"])
     return jsonify(
         {
             "status": "ok",
             "api": APP_NAME,
             "version": APP_VERSION,
-            "cache": metadata,
+            "catalog_ready": metadata.get("deal_count", 0) > 0,
+            "deal_signal_count": metadata.get("deal_count", 0),
+            "active_source_count": len(metadata.get("sources", [])),
+            "last_successful_refresh_at": metadata.get("last_successful_refresh_at"),
+            "source_error_count": len(metadata.get("source_errors", {})),
             "paid_gateway_required": os.environ.get("REQUIRE_PAID_GATEWAY", "true").lower()
             in {"1", "true", "yes"},
         }
