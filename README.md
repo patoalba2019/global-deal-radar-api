@@ -3,15 +3,15 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-green.svg)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
-[![RapidAPI](https://img.shields.io/badge/RapidAPI-Paid-orange.svg)](https://rapidapi.com/patoalba2019/api/globaldealradarapi)
+[![Product](https://img.shields.io/badge/Product-Page-blue.svg)](https://patoapis-paid-apis.onrender.com/global-deal-radar-api.html)
 
 **🔍 Global deal intelligence API for apps, newsletters, dashboards and AI agents**
 
-[Subscribe on RapidAPI](https://rapidapi.com/patoalba2019/api/globaldealradarapi?utm_source=github&utm_medium=repository&utm_campaign=globaldeals_readme) |
 [View product details](https://patoapis-paid-apis.onrender.com/global-deal-radar-api.html?utm_source=github&utm_medium=repository&utm_campaign=globaldeals_readme) |
 [Live Demo](https://patoapis-paid-apis.onrender.com/)
 
-> Commercial API access is paid and delivered through RapidAPI. The direct production backend rejects requests that do not carry the private marketplace gateway credential.
+> Commercial API access is designed for marketplace-managed credentials and
+> protected production usage.
 
 GlobalDealRadarAPI normalizes live deal feeds, community deal posts and market signals into one contract with categories, price extraction, scoring, source attribution and safe follow-up search links.
 
@@ -48,19 +48,21 @@ GlobalDealRadarAPI normalizes live deal feeds, community deal posts and market s
 | **Hacker News Algolia** | Public API | Software, AI, hosting and pricing market signals |
 | **GitHub Search** | Public API | Popular curated discount-resource repositories |
 
-**Note:** The API does not claim ownership of third-party listings. Keep original URLs and source attribution visible in downstream products.
+The API keeps original URLs and source attribution available so downstream
+products can show transparent deal provenance.
 
 ## Access Model
 
-Only `/health` and `/openapi.json` are public. Product data endpoints require a
-gateway secret sent by RapidAPI or another paid marketplace:
+`/health` and `/openapi.json` are public for monitoring and documentation.
+Product data endpoints use a gateway secret sent by RapidAPI or another paid
+marketplace:
 
 - `X-RapidAPI-Proxy-Secret`
 - `X-API-Gateway-Secret`
 - `X-GlobalDealRadarAPI-Secret`
 
-Direct backend calls without the configured secret receive `402 Payment
-Required`.
+Production requests are designed to flow through authorized marketplace
+credentials.
 
 ## 🛠️ API Endpoints
 
@@ -133,7 +135,8 @@ curl http://localhost:5000/trending
 ## 🌐 Deployment
 
 ### Render (Recommended)
-Use the included `render.yaml` Blueprint. The default service is configured for Render's free web service plan and paid-gateway protection.
+Use the included `render.yaml` Blueprint. The default service is configured for
+lightweight cloud hosting and paid-gateway protection.
 
 ### Environment Variables for Production
 ```bash
@@ -151,7 +154,7 @@ CACHE_TTL_SECONDS=1800
 - **Pro**: $9.99/month - Higher quota
 - **Ultra**: $29.99/month - Commercial quota
 
-[Subscribe on RapidAPI](https://rapidapi.com/patoalba2019/api/globaldealradarapi)
+[View product details](https://patoapis-paid-apis.onrender.com/global-deal-radar-api.html)
 
 ## 📊 Use Cases
 
@@ -166,6 +169,32 @@ CACHE_TTL_SECONDS=1800
 
 ## 🔗 Links
 
-- [RapidAPI Marketplace](https://rapidapi.com/patoalba2019/api/globaldealradarapi)
 - [Product Website](https://patoapis-paid-apis.onrender.com/global-deal-radar-api.html)
-- [Support](https://rapidapi.com/patoalba2019/api/globaldealradarapi/support)
+- [Live Health](https://global-deal-radar-api.onrender.com/health)
+
+## Suggested Marketplace Positioning
+
+Long description:
+
+```text
+GlobalDealRadarAPI gives builders a single paid API for worldwide deal
+discovery. It combines public deal APIs, RSS feeds, community deal posts,
+developer-market signals and curated resource discovery into one normalized
+contract with scoring, categories, price extraction, source attribution and
+filtering.
+
+Use it to power newsletters, personal finance apps, shopping dashboards,
+browser extensions, AI agents, SaaS lead magnets, travel assistants, gaming
+deal apps, course-deal trackers and digital product discovery tools.
+
+Plans should be priced low enough to work as a hook product while still keeping
+all product data behind the paid marketplace gateway.
+```
+
+Suggested starting price:
+
+- Basic: USD 2.99/month, low request quota
+- Pro: USD 9.99/month, higher quota
+- Ultra: USD 29.99/month, commercial quota
+
+Production product data is designed for paid marketplace access.
